@@ -78,7 +78,6 @@
     "@100mslive/hls-player": "0.3.38",
     "@100mslive/hms-noise-cancellation": "0.0.1",
     "@100mslive/hms-virtual-background": "1.13.38",
-    "@100mslive/hms-whiteboard": "0.0.28",
     "@100mslive/react-icons": "0.10.38",
     "@100mslive/react-sdk": "0.10.38",
     "@100mslive/types-prebuilt": "0.12.12",
