@@ -9,6 +9,8 @@
 
 100ms Room Kit provides simple & easy to use UI components to build Live Streaming & Video Conferencing experiences in your apps.
 
+Touch.
+
 ## Installation
 
 ```bash
