@@ -289,7 +289,7 @@ export const PreviewControls = ({
         {isMobile && <NoiseCancellation iconOnly />}
         {!hideSettings ? <PreviewSettings /> : null}
         {customOptions?.map(({ label, icon, onClick }) => (
-          <IconButton key={label} css={{ flexShrink: 0 }} onClick={onClick} aria-label={label}>
+          <IconButton key={label} css={{ flexShrink: 0 }} onClick={onClick} aria-label={label} title={label}>
             {icon}
           </IconButton>
         ))}

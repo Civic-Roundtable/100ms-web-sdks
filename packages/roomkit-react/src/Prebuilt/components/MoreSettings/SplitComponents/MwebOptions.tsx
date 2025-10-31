@@ -313,7 +313,7 @@ export const MwebOptions = ({
               </ActionTile.Root>
             ) : null}
 
-            {(title || description) && !customOptions.length ? (
+            {(title || description) && !customOptions?.length ? (
               <ActionTile.Root
                 onClick={() => {
                   setOpenOptionsSheet(false);
@@ -325,7 +325,13 @@ export const MwebOptions = ({
               </ActionTile.Root>
             ) : null}
             {customOptions?.map(({ label, icon, onClick }) => (
-              <ActionTile.Root key={label} onClick={onClick}>
+              <ActionTile.Root
+                key={label}
+                onClick={() => {
+                  onClick();
+                  setOpenOptionsSheet(false);
+                }}
+              >
                 {icon}
                 <ActionTile.Title>{label}</ActionTile.Title>
               </ActionTile.Root>
