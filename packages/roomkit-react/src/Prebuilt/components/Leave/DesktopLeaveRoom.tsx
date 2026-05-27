@@ -67,7 +67,7 @@ export const DesktopLeaveRoom = ({
                   bg: '$alert_error_dim',
                 },
               }}
-              aria-label="End meeting options"
+              aria-label="Options for ending meeting"
             >
               <MenuTriggerButton data-testid="leave_end_dropdown_trigger">
                 <Box aria-hidden><VerticalMenuIcon /></Box>

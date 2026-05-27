@@ -29,11 +29,13 @@ export const RaiseHand = ({ css }: { css?: CSS }) => {
             setAriaLiveMessage(
               isHandRaised
                 ? 'Your hand is no longer raised'
-                : 'Your hand is now raised'
+                : 'Your hand is raised'
             );
           }}
         >
-          {isHandRaised ? <HandRaiseSlashedIcon /> : <HandIcon />}
+          <Box aria-hidden>
+            {isHandRaised ? <HandRaiseSlashedIcon /> : <HandIcon />}
+          </Box>
         </IconButton>
       </Tooltip>
       <Box aria-live="assertive" style={{
