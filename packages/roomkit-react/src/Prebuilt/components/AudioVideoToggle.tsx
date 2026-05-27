@@ -292,6 +292,7 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
   const isNoiseCancellationEnabled = useIsNoiseCancellationEnabled();
   const { setNoiseCancellationWithPlugin, inProgress } = useNoiseCancellationWithPlugin();
   const showMuteIcon = !isLocalAudioEnabled || !toggleAudio;
+  const [ ariaLiveMessage, setAriaLiveMessage ] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -325,9 +326,13 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
           onDisabledClick={toggleAudio}
           testid="audio_toggle_btn"
           tooltipMessage={`Turn ${isLocalAudioEnabled ? 'off' : 'on'} audio (${isMacOS ? '⌘' : 'ctrl'} + d)`}
-          icon={!isLocalAudioEnabled ? <MicOffIcon /> : <MicOnIcon />}
+          icon={!isLocalAudioEnabled ? <Box aria-hidden><MicOffIcon /></Box> : <Box aria-hidden><MicOnIcon /></Box>}
           active={isLocalAudioEnabled}
-          onClick={toggleAudio}
+          aria-label={isLocalAudioEnabled ? 'Mute' : 'Unmute'}
+          onClick={() => {
+            toggleAudio();
+            setAriaLiveMessage(isLocalAudioEnabled ? 'You are now muted' : 'You are now unmuted');
+          }}
           key="toggleAudio"
         >
           <Dropdown.Group>
@@ -366,10 +371,14 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
           onDisabledClick={toggleVideo}
           tooltipMessage={`Turn ${isLocalVideoEnabled ? 'off' : 'on'} video (${isMacOS ? '⌘' : 'ctrl'} + e)`}
           testid="video_toggle_btn"
-          icon={!isLocalVideoEnabled ? <VideoOffIcon /> : <VideoOnIcon />}
+          icon={!isLocalVideoEnabled ? <Box aria-hidden><VideoOffIcon /></Box> : <Box aria-hidden><VideoOnIcon /></Box>}
           key="toggleVideo"
           active={isLocalVideoEnabled}
-          onClick={toggleVideo}
+          aria-label={isLocalVideoEnabled ? 'Turn video off' : 'Turn video on'}
+          onClick={() => {
+            toggleVideo();
+            setAriaLiveMessage(isLocalVideoEnabled ? 'Your video is now on' : 'Your video is now off');
+          }}
         >
           <Options
             options={videoInput}
@@ -400,6 +409,18 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
       {showSettings && (
         <SettingsModal open={showSettings} onOpenChange={() => setShowSettings(false)} screenType={screenType} />
       )}
+      <Box id="announce" aria-live="assertive" style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: 0,
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+      }}>
+        {ariaLiveMessage}
+      </Box>
     </Fragment>
   );
 };

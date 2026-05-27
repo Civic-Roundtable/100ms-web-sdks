@@ -51,9 +51,10 @@ export const DesktopLeaveRoom = ({
               borderBottomRightRadius: 0,
             }}
             onClick={() => setShowLeaveRoomAlert(true)}
+            aria-label="Leave meeting"
           >
-            <Tooltip title="Leave Room">
-              <Box>
+            <Tooltip title="Leave meeting">
+              <Box aria-hidden>
                 <ExitIcon style={{ transform: 'rotate(180deg)' }} />
               </Box>
             </Tooltip>

@@ -22,6 +22,7 @@ export const RaiseHand = ({ css }: { css?: CSS }) => {
         css={css}
         active={!isHandRaised}
         onClick={async () => await toggleHandRaise()}
+        aria-label={isHandRaised ? 'Lower hand' : 'Raise hand'}
       >
         {isHandRaised ? <HandRaiseSlashedIcon /> : <HandIcon />}
       </IconButton>
