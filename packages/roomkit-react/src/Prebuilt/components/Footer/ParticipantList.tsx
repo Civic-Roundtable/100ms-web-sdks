@@ -153,7 +153,7 @@ export const ParticipantCount = () => {
       data-testid="participant_list"
       aria-label={`View ${getFormattedCount(peerCount)} participants`}
     >
-      <Box style={{ display: 'flex', gap: '0.5rem', flex: 'none' }} aria-hidden>
+      <Box style={{ display: 'flex', gap: '0.25rem', flex: 'none' }} aria-hidden>
         <PeopleIcon />
         <Text variant="sm" css={{ mx: '$4', c: 'inherit' }}>
           {getFormattedCount(peerCount)}

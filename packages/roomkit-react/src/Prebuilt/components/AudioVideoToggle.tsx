@@ -334,7 +334,7 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
             toggleAudio();
             setAriaLiveMessage(isLocalAudioEnabled ? 'You are now muted' : 'You are now unmuted');
           }}
-          moreOptionsButtonLabel="More audio options"
+          moreOptionsButtonLabel="More video options"
         >
           <Dropdown.Group>
             <OptionLabel icon={<MicOnIcon />}>
