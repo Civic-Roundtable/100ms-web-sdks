@@ -327,13 +327,14 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
           testid="audio_toggle_btn"
           tooltipMessage={`Turn ${isLocalAudioEnabled ? 'off' : 'on'} audio (${isMacOS ? '⌘' : 'ctrl'} + d)`}
           icon={!isLocalAudioEnabled ? <Box aria-hidden><MicOffIcon /></Box> : <Box aria-hidden><MicOnIcon /></Box>}
+          key="toggleAudio"
           active={isLocalAudioEnabled}
           aria-label={isLocalAudioEnabled ? 'Mute' : 'Unmute'}
           onClick={() => {
             toggleAudio();
             setAriaLiveMessage(isLocalAudioEnabled ? 'You are now muted' : 'You are now unmuted');
           }}
-          key="toggleAudio"
+          moreOptionsButtonLabel="More audio options"
         >
           <Dropdown.Group>
             <OptionLabel icon={<MicOnIcon />}>
@@ -374,10 +375,11 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
           icon={!isLocalVideoEnabled ? <Box aria-hidden><VideoOffIcon /></Box> : <Box aria-hidden><VideoOnIcon /></Box>}
           key="toggleVideo"
           active={isLocalVideoEnabled}
+          moreOptionsButtonLabel="More audio options"
           aria-label={isLocalVideoEnabled ? 'Turn video off' : 'Turn video on'}
           onClick={() => {
             toggleVideo();
-            setAriaLiveMessage(isLocalVideoEnabled ? 'Your video is now on' : 'Your video is now off');
+            setAriaLiveMessage(isLocalVideoEnabled ? 'Your video is now off' : 'Your video is now on');
           }}
         >
           <Options
@@ -409,7 +411,7 @@ export const AudioVideoToggle = ({ hideOptions = false }: { hideOptions?: boolea
       {showSettings && (
         <SettingsModal open={showSettings} onOpenChange={() => setShowSettings(false)} screenType={screenType} />
       )}
-      <Box id="announce" aria-live="assertive" style={{
+      <Box aria-live="assertive" style={{
         position: 'absolute',
         width: '1px',
         height: '1px',

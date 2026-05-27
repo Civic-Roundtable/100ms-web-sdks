@@ -25,7 +25,6 @@ export const ChatToggle = ({ onClick }: { onClick?: () => void }) => {
           onClick={() => (onClick ? onClick() : toggleChat())}
           css={{ bg: isChatOpen ? '$surface_brighter' : '' }}
           data-testid="chat_btn"
-          aria-label={`${isChatOpen ? 'Close' : 'Open'} chat`}
         >
           <Box aria-hidden>
             <ChatIcon />
