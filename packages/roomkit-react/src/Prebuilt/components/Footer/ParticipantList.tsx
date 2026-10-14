@@ -4,6 +4,7 @@ import {
   HMSPeer,
   HMSPeerType,
   HMSRoleName,
+  HMSTrackID,
   selectAudioTrackByPeerID,
   selectAvailableRoleNames,
   selectHandRaisedPeers,
@@ -341,7 +342,13 @@ const ParticipantActions = React.memo(
               </Flex>
             ) : null}
 
-            {shouldShowMoreActions ? <ParticipantMoreActions peerId={peerId} role={role} /> : null}
+            {shouldShowMoreActions ? (
+              <ParticipantMoreActions
+                peerId={peerId}
+                role={role}
+                audioTrackId={canToggleRemoteAudio ? audioTrack.id : undefined}
+              />
+            ) : null}
           </>
         )}
       </Flex>
@@ -372,7 +379,18 @@ const HandRaisedAccordionParticipantActions = ({ peerId, role }: { peerId: strin
   );
 };
 
-const ParticipantMoreActions = ({ peerId, role }: { peerId: string; role: string }) => {
+/**
+ * @param audioTrackId set only when the local peer may mute/unmute this peer's audio
+ */
+const ParticipantMoreActions = ({
+  peerId,
+  role,
+  audioTrackId,
+}: {
+  peerId: string;
+  role: string;
+  audioTrackId?: HMSTrackID;
+}) => {
   const {
     open,
     setOpen,
@@ -431,7 +449,7 @@ const ParticipantMoreActions = ({ peerId, role }: { peerId: string; role: string
                 </Text>
               </Dropdown.Item>
             ) : null}
-            {canToggleRemoteAudio ? <MuteParticipantAudio audioTrackId={audioTrack.id} /> : null}
+            {audioTrackId ? <MuteParticipantAudio audioTrackId={audioTrackId} /> : null}
             <RemoveParticipant peerId={peerId} />
           </Dropdown.Content>
         </Dropdown.Portal>

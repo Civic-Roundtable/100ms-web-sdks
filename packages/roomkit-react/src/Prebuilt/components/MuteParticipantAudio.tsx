@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  HMSPeerID,
-  selectAudioTrackByPeerID,
-  selectLocalPeerID,
-  useHMSStore,
-  useRemoteAVToggle,
-} from '@100mslive/react-sdk';
+import { HMSTrackID, useRemoteAVToggle } from '@100mslive/react-sdk';
 import { MicOffIcon, MicOnIcon } from '@100mslive/react-icons';
 // @ts-ignore: No implicit Any
 import { ToastManager } from './Toast/ToastManager';
@@ -18,15 +12,13 @@ const handleError = (err: Error) => {
 
 /**
  * Dropdown item that lets a host mute (or request to unmute) a remote participant's audio.
- * Renders nothing for the local peer, for peers without an audio track, or when the local
- * peer lacks the relevant mute/unmute permission.
+ * The caller is responsible for only rendering this for remote peers; the item still renders
+ * nothing when the local peer lacks the relevant mute/unmute permission.
  */
-export const MuteParticipantAudio = ({ peerId }: { peerId: HMSPeerID }) => {
-  const localPeerId = useHMSStore(selectLocalPeerID);
-  const audioTrackId = useHMSStore(selectAudioTrackByPeerID(peerId))?.id ?? '';
+export const MuteParticipantAudio = ({ audioTrackId }: { audioTrackId: HMSTrackID }) => {
   const { isAudioEnabled, toggleAudio } = useRemoteAVToggle(audioTrackId, '', handleError);
 
-  if (peerId === localPeerId || !toggleAudio) {
+  if (!toggleAudio) {
     return null;
   }
   return (
