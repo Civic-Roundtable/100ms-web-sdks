@@ -431,7 +431,7 @@ const ParticipantMoreActions = ({ peerId, role }: { peerId: string; role: string
                 </Text>
               </Dropdown.Item>
             ) : null}
-            <MuteParticipantAudio peerId={peerId} />
+            {canToggleRemoteAudio ? <MuteParticipantAudio audioTrackId={audioTrack.id} /> : null}
             <RemoveParticipant peerId={peerId} />
           </Dropdown.Content>
         </Dropdown.Portal>
