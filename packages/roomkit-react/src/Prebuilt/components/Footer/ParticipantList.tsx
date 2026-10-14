@@ -4,6 +4,7 @@ import {
   HMSPeer,
   HMSPeerType,
   HMSRoleName,
+  selectAudioTrackByPeerID,
   selectAvailableRoleNames,
   selectHandRaisedPeers,
   selectHasPeerHandRaised,
@@ -30,6 +31,7 @@ import { Accordion, Box, Button, config as cssConfig, Dropdown, Flex, Input, Tex
 // @ts-ignore: No implicit Any
 import IconButton from '../../IconButton';
 import { ConnectionIndicator } from '../Connection/ConnectionIndicator';
+import { MuteParticipantAudio } from '../MuteParticipantAudio';
 import { RemoveParticipant } from '../RemoveParticipant';
 import { RoleChangeModal } from '../RoleChangeModal';
 import { RoleAccordion } from './RoleAccordion';
@@ -286,11 +288,16 @@ const ParticipantActions = React.memo(
     peerType: HMSPeerType;
   }) => {
     const isHandRaised = useHMSStore(selectHasPeerHandRaised(peerId));
-    const canChangeRole = useHMSStore(selectPermissions)?.changeRole;
-    const canRemoveOthers = useHMSStore(selectPermissions)?.removeOthers;
+    const permissions = useHMSStore(selectPermissions);
+    const localPeerId = useHMSStore(selectLocalPeerID);
+    const audioTrack = useHMSStore(selectAudioTrackByPeerID(peerId));
     const { elements } = useRoomLayoutConferencingScreen();
     const { on_stage_exp } = elements || {};
-    const shouldShowMoreActions = (on_stage_exp && canChangeRole) || canRemoveOthers;
+    // mirrors useRemoteAVToggle: remote peer with an audio track, and the permission matching the track's state
+    const canToggleRemoteAudio =
+      peerId !== localPeerId && !!audioTrack && !!(audioTrack.enabled ? permissions?.mute : permissions?.unmute);
+    const shouldShowMoreActions =
+      (on_stage_exp && permissions?.changeRole) || permissions?.removeOthers || canToggleRemoteAudio;
     const isAudioMuted = !useHMSStore(selectIsPeerAudioEnabled(peerId));
 
     return (
@@ -385,6 +392,7 @@ const ParticipantMoreActions = ({ peerId, role }: { peerId: string; role: string
         <Dropdown.Trigger
           asChild
           data-testid="participant_more_actions"
+          aria-label="More actions"
           className="participant_item"
           css={{
             p: '$1',
@@ -423,6 +431,7 @@ const ParticipantMoreActions = ({ peerId, role }: { peerId: string; role: string
                 </Text>
               </Dropdown.Item>
             ) : null}
+            <MuteParticipantAudio peerId={peerId} />
             <RemoveParticipant peerId={peerId} />
           </Dropdown.Content>
         </Dropdown.Portal>
