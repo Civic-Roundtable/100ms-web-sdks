@@ -79,7 +79,7 @@ cd examples/prebuilt-react-integration
 yarn dev
 ```
 
-`http://locahost:<port>/<room-code>`
+`http://locahost:<port>/?roomCode=<room-code>`
 
 Once you run `yarn dev`, the localhost link with the port will be generated automatically. Just get the roomCode from [100ms dashboard](https://dashboard.100ms.live) and append at the end
 
