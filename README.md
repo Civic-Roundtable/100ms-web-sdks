@@ -66,7 +66,7 @@ The 100ms SDK gives you everything you need to build scalable, high-quality live
 if you are using a different version in other projects, use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) to manage node versions.
 
 ```bash
-git clone https://github.com/100mslive/web-sdks.git
+git clone https://github.com/Civic-Roundtable/100ms-web-sdks.git
 cd web-sdks
 yarn install
 yarn build
