@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useMeasure, useMedia } from 'react-use';
+import { HMSVirtualBackgroundTypes } from '@100mslive/hms-virtual-background';
 import type { DefaultPreviewScreen_Elements } from '@100mslive/types-prebuilt';
 import {
   HMSRoomState,
@@ -40,6 +41,7 @@ import {
 } from '../AppData/useUISettings';
 // @ts-ignore: No implicit Any
 import { defaultPreviewPreference, UserPreferencesKeys, useUserPreferences } from '../hooks/useUserPreferences';
+import { useBackground } from '../VirtualBackground/use-background';
 // @ts-ignore: No implicit Any
 import { calculateAvatarAndAttribBoxSize, getFormattedCount, getMetadata } from '../../common/utils';
 import { APP_DATA, UI_SETTINGS } from '../../common/constants';
@@ -88,6 +90,7 @@ const PreviewJoin = ({
   const { endpoints } = useHMSPrebuiltContext();
   const { peerCount } = useParticipants();
   const loadingEffects = useHMSStore(selectAppData(APP_DATA.loadingEffects));
+  const [background] = useBackground();
   const { enableJoin, preview, join } = usePreviewJoin({
     name,
     metadata,
@@ -184,7 +187,7 @@ const PreviewJoin = ({
             name={name}
             disabled={!!initialName}
             onChange={setName}
-            enableJoin={enableJoin && !loadingEffects}
+            enableJoin={enableJoin && (background.type === HMSVirtualBackgroundTypes.NONE || !loadingEffects)}
             onJoin={savePreferenceAndJoin}
             cannotPublishVideo={!toggleVideo}
             cannotPublishAudio={!toggleAudio}

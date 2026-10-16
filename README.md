@@ -66,7 +66,7 @@ The 100ms SDK gives you everything you need to build scalable, high-quality live
 if you are using a different version in other projects, use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) to manage node versions.
 
 ```bash
-git clone https://github.com/100mslive/web-sdks.git
+git clone https://github.com/Civic-Roundtable/100ms-web-sdks.git
 cd web-sdks
 yarn install
 yarn build
@@ -79,7 +79,7 @@ cd examples/prebuilt-react-integration
 yarn dev
 ```
 
-`http://locahost:<port>/<room-code>`
+`http://locahost:<port>/?roomCode=<room-code>`
 
 Once you run `yarn dev`, the localhost link with the port will be generated automatically. Just get the roomCode from [100ms dashboard](https://dashboard.100ms.live) and append at the end
 
