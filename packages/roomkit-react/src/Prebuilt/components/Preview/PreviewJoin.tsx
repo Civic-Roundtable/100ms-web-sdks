@@ -41,6 +41,7 @@ import {
 } from '../AppData/useUISettings';
 // @ts-ignore: No implicit Any
 import { defaultPreviewPreference, UserPreferencesKeys, useUserPreferences } from '../hooks/useUserPreferences';
+import { useBackground } from '../VirtualBackground/use-background';
 // @ts-ignore: No implicit Any
 import { calculateAvatarAndAttribBoxSize, getFormattedCount, getMetadata } from '../../common/utils';
 import { APP_DATA, UI_SETTINGS } from '../../common/constants';
@@ -89,7 +90,7 @@ const PreviewJoin = ({
   const { endpoints } = useHMSPrebuiltContext();
   const { peerCount } = useParticipants();
   const loadingEffects = useHMSStore(selectAppData(APP_DATA.loadingEffects));
-  const background = useHMSStore(selectAppData(APP_DATA.background));
+  const [background] = useBackground();
   const { enableJoin, preview, join } = usePreviewJoin({
     name,
     metadata,
@@ -186,7 +187,7 @@ const PreviewJoin = ({
             name={name}
             disabled={!!initialName}
             onChange={setName}
-            enableJoin={enableJoin && (background === HMSVirtualBackgroundTypes.NONE || !loadingEffects)}
+            enableJoin={enableJoin && (background.type === HMSVirtualBackgroundTypes.NONE || !loadingEffects)}
             onJoin={savePreferenceAndJoin}
             cannotPublishVideo={!toggleVideo}
             cannotPublishAudio={!toggleAudio}
